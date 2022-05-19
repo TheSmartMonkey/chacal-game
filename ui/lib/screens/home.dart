@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:ui/cors/constants.dart';
-import 'package:ui/widgets/button.dart';
+import 'package:ui/widgets/custom_button.dart';
+import 'package:ui/widgets/custom_input.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -16,9 +18,20 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: const Text(title),
         ),
-        body: CustomButton(
-          onAction: () => null,
-          textButton: 'Commencer une nouvelle partie',
+        body: Column(
+          children: [
+            FormBuilder(
+              child: Column(
+                children: [
+                  CustomInput(formItem: CustomInputItem(hint: 'hint', name: 'name', onChanged: () {}), initialValue: const {})
+                ],
+              ),
+            ),
+            CustomButton(
+              onAction: () => null,
+              textButton: 'Jouer',
+            ),
+          ],
         ));
   }
 }

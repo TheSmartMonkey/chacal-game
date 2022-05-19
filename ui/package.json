@@ -5,6 +5,9 @@
   "scripts": {
     "lint": "flutter analyze",
     "build": "flutter pub get",
+    "build:web": "flutter build web",
+    "build:ios": "flutter build ios",
+    "build:apk": "flutter build apk",
     "test": "flutter test",
     "web": "flutter run -d chrome",
     "mobile": "flutter run -d emulator-5554"
