@@ -1,0 +1,12 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "description": "A new Flutter project.",
+  "scripts": {
+    "lint": "flutter analyze",
+    "build": "flutter pub get",
+    "test": "flutter test",
+    "web": "flutter run -d chrome",
+    "mobile": "flutter run -d emulator-5554"
+  }
+}
