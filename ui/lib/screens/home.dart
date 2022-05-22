@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ui/cors/constants.dart';
 import 'package:ui/models/players.dart';
 import 'package:ui/providers/players.dart';
-import 'package:ui/screens/choose_word.dart';
 import 'package:ui/screens/who_choose.dart';
 import 'package:ui/widgets/custom_button.dart';
 import 'package:ui/widgets/custom_input.dart';

@@ -26,4 +26,12 @@ class PlayersProvider extends ChangeNotifier {
     _players.start = startPlayer;
     notifyListeners();
   }
+
+  void clearPlayers() {
+    _players = PlayersModel.empty();
+  }
+
+  void clearCurrentPlayer() {
+    _currentPlayer = '';
+  }
 }

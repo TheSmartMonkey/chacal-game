@@ -39,8 +39,10 @@ class _ChooseWordScreenState extends State<ChooseWordScreen> {
 
     if (isValide) {
       Provider.of<WordProvider>(context, listen: false).updateWord(_word.text);
-      Provider.of<PlayersProvider>(context, listen: false)
-          .updateCurrentPlayer(_players, _players.start);
+      Provider.of<PlayersProvider>(context, listen: false).updateCurrentPlayer(
+        _players,
+        _players.start,
+      );
       Navigator.push(
         context,
         MaterialPageRoute(

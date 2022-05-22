@@ -4,6 +4,7 @@ import 'package:ui/cors/constants.dart';
 import 'package:ui/models/players.dart';
 import 'package:ui/providers/players.dart';
 import 'package:ui/providers/word.dart';
+import 'package:ui/screens/end.dart';
 import 'package:ui/widgets/custom_button.dart';
 import 'package:ui/widgets/custom_input.dart';
 import 'package:ui/widgets/navbar.dart';
@@ -19,16 +20,18 @@ class _GameScreenState extends State<GameScreen> {
   final _formKey = GlobalKey<FormState>();
   late PlayersModel _players;
   late String _currentPlayer;
+  late String _word;
   late String _currentWord;
   final _selectedWord = TextEditingController(text: '');
 
   @override
   void initState() {
     _players = Provider.of<PlayersProvider>(context, listen: false).getPlayers;
-    _currentWord =
-        Provider.of<WordProvider>(context, listen: false).getCurrentWord;
     _currentPlayer =
         Provider.of<PlayersProvider>(context, listen: false).getCurrentPlayer;
+    _word = Provider.of<WordProvider>(context, listen: false).getWord;
+    _currentWord =
+        Provider.of<WordProvider>(context, listen: false).getCurrentWord;
     super.initState();
   }
 
@@ -50,12 +53,7 @@ class _GameScreenState extends State<GameScreen> {
       Provider.of<WordProvider>(context, listen: false).updateCurrentWord(
         _selectedWord.text,
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const GameScreen(),
-        ),
-      );
+      _isWon();
     }
   }
 
@@ -77,6 +75,20 @@ class _GameScreenState extends State<GameScreen> {
         textButton: 'Valider',
       ),
     ];
+  }
+
+  void _isWon() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          if (_selectedWord.text == _word) {
+            return const EndScreen();
+          }
+          return const GameScreen();
+        },
+      ),
+    );
   }
 
   @override
