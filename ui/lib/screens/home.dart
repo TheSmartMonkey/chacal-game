@@ -34,7 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
     final bool isValide = _formKey.currentState!.validate();
 
     if (isValide) {
-      _players = PlayersModel(player1: _player1.text, player2: _player2.text);
+      _players = PlayersModel(
+        player1: _player1.text,
+        player2: _player2.text,
+        start: _player1.text,
+      );
       Provider.of<PlayersProvider>(context, listen: false)
           .updatePlayers(_players);
       Navigator.push(

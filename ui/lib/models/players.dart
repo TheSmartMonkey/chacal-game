@@ -1,15 +1,12 @@
-const defaultPlayer1 = 'Laurent le BG';
-const defaultPlayer2 = 'Elsa la BG';
-
 class PlayersModel {
   String player1;
   String player2;
-  String? start;
+  String start;
 
   PlayersModel({
     required this.player1,
     required this.player2,
-    this.start,
+    required this.start,
   });
 
   Map<String, String?> toJson() => {

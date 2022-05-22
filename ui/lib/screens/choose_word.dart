@@ -4,6 +4,7 @@ import 'package:ui/cors/constants.dart';
 import 'package:ui/models/players.dart';
 import 'package:ui/providers/players.dart';
 import 'package:ui/providers/word.dart';
+import 'package:ui/screens/game.dart';
 import 'package:ui/widgets/custom_button.dart';
 import 'package:ui/widgets/custom_input.dart';
 import 'package:ui/widgets/navbar.dart';
@@ -18,7 +19,7 @@ class ChooseWordScreen extends StatefulWidget {
 class _ChooseWordScreenState extends State<ChooseWordScreen> {
   final _formKey = GlobalKey<FormState>();
   late PlayersModel _players;
-  final _word = TextEditingController(text: 'word');
+  final _word = TextEditingController(text: '');
 
   @override
   void initState() {
@@ -38,10 +39,12 @@ class _ChooseWordScreenState extends State<ChooseWordScreen> {
 
     if (isValide) {
       Provider.of<WordProvider>(context, listen: false).updateWord(_word.text);
+      Provider.of<PlayersProvider>(context, listen: false)
+          .updateCurrentPlayer(_players, _players.start);
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const ChooseWordScreen(),
+          builder: (context) => const GameScreen(),
         ),
       );
     }
@@ -68,7 +71,7 @@ class _ChooseWordScreenState extends State<ChooseWordScreen> {
             ),
             CustomButton(
               onAction: () => onSubmit(),
-              textButton: 'Jouer',
+              textButton: 'Valider',
             ),
           ],
         ),

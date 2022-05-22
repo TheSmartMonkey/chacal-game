@@ -3,6 +3,7 @@ import 'package:ui/cors/constants.dart';
 import 'package:ui/providers/players.dart';
 import 'package:ui/providers/word.dart';
 import 'package:ui/screens/choose_word.dart';
+import 'package:ui/screens/game.dart';
 import 'package:ui/screens/home.dart';
 import 'package:provider/provider.dart';
 import 'package:ui/screens/who_choose.dart';
