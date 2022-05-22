@@ -14,7 +14,9 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: Colors.pink,
         title: Text(customTitle ?? title),
       ),
       body: child,

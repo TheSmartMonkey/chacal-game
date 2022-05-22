@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui/cors/constants.dart';
+import 'package:ui/providers/number_of_tries.dart';
 import 'package:ui/providers/players.dart';
 import 'package:ui/providers/word.dart';
 import 'package:ui/screens/choose_word.dart';
-import 'package:ui/screens/game.dart';
 import 'package:ui/screens/home.dart';
 import 'package:provider/provider.dart';
 import 'package:ui/screens/who_choose.dart';
@@ -17,6 +17,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => WordProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => NumberOfTriesProvider(),
         ),
       ],
       child: const MyApp(),
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: title,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
       ),
       initialRoute: '/',
       routes: {

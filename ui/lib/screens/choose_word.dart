@@ -61,13 +61,20 @@ class _ChooseWordScreenState extends State<ChooseWordScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('${_players.start} commence', style: titleStyle),
+            Column(
+              children: [
+                Text(_players.start, style: titleStyle),
+                const SizedBox(height: 10),
+                const Text('Choisi un mot', style: titleStyle),
+              ],
+            ),
             Column(
               children: [
                 CustomInput(
                   controller: _word,
                   label: 'Choisir un mot',
                   hint: 'Chacal',
+                  maxLength: 20,
                 ),
               ],
             ),

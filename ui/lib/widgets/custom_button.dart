@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui/cors/constants.dart';
 
 class CustomButton extends StatefulWidget {
   final Function onAction;
@@ -56,7 +57,6 @@ class _CustomButtonState extends State<CustomButton> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -68,7 +68,7 @@ class _CustomButtonState extends State<CustomButton> {
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
           minimumSize: Size(screenSize.width - 100, 60),
-          primary: Colors.blue,
+          primary: Colors.pink,
           onPrimary: Colors.white,
         ),
       ),

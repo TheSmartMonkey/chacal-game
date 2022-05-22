@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui/cors/constants.dart';
 import 'package:ui/models/players.dart';
+import 'package:ui/providers/number_of_tries.dart';
 import 'package:ui/providers/players.dart';
 import 'package:ui/screens/who_choose.dart';
 import 'package:ui/widgets/custom_button.dart';
@@ -20,12 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   PlayersModel _players = PlayersModel.empty();
   final _player1 = TextEditingController(text: defaultPlayer1);
   final _player2 = TextEditingController(text: defaultPlayer2);
+  String _selectedValue = '50';
 
   @override
   void dispose() {
-    super.dispose();
     _player1.dispose();
     _player2.dispose();
+    super.dispose();
   }
 
   void onSubmit() {
@@ -38,8 +40,13 @@ class _HomeScreenState extends State<HomeScreen> {
         player2: _player2.text,
         start: _player1.text,
       );
-      Provider.of<PlayersProvider>(context, listen: false)
-          .updatePlayers(_players);
+      Provider.of<PlayersProvider>(context, listen: false).updatePlayers(
+        _players,
+      );
+      Provider.of<NumberOfTriesProvider>(context, listen: false)
+          .updateNumberOfTries(
+        int.parse(_selectedValue),
+      );
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -47,6 +54,37 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     }
+  }
+
+  Widget dropdownWidget() {
+    List<String> dropdownValues = ['5', '10', '20', '50'];
+    return Padding(
+      padding: const EdgeInsets.all(40),
+      child: DropdownButtonFormField<String>(
+        value: _selectedValue,
+        hint: const Text('Nombre d\'essai'),
+        decoration: const InputDecoration(
+          labelText: 'Nombre d\'essai',
+        ),
+        isExpanded: true,
+        onChanged: (value) {
+          setState(() {
+            _selectedValue = value ?? '50';
+          });
+        },
+        onSaved: (value) {
+          setState(() {
+            _selectedValue = value ?? '50';
+          });
+        },
+        items: dropdownValues.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   @override
@@ -65,12 +103,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   controller: _player1,
                   label: 'Joueur 1',
                   hint: defaultPlayer1,
+                  maxLength: 20,
                 ),
                 CustomInput(
                   controller: _player2,
                   label: 'Joueur 2',
                   hint: defaultPlayer2,
+                  maxLength: 20,
                 ),
+                dropdownWidget(),
               ],
             ),
             CustomButton(

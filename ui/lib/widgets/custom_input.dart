@@ -4,7 +4,7 @@ class CustomInput extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final String hint;
-
+  final int? maxLength;
   final Function? validator;
 
   const CustomInput({
@@ -12,6 +12,7 @@ class CustomInput extends StatelessWidget {
     required this.controller,
     required this.label,
     required this.hint,
+    this.maxLength,
     this.validator,
   }) : super(key: key);
 
@@ -33,6 +34,7 @@ class CustomInput extends StatelessWidget {
             hintText: hint,
             labelText: label,
           ),
+          maxLength: maxLength,
           validator: (value) => validator ?? valide(value),
         ),
       ),
