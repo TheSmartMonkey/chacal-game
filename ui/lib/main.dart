@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:ui/cors/constants.dart';
+import 'package:ui/providers/players.dart';
+import 'package:ui/screens/choose_word.dart';
 import 'package:ui/screens/home.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => PlayersProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +28,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/chooseWord': (context) => const ChooseWordScreen(),
+      },
     );
   }
 }
