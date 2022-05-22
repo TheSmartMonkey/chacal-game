@@ -10,4 +10,9 @@ class PlayersProvider extends ChangeNotifier {
     _players = players;
     notifyListeners();
   }
+
+  void updatePlayersStart(String startPlayer) {
+    _players.start = startPlayer;
+    notifyListeners();
+  }
 }

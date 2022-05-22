@@ -3,22 +3,20 @@ import 'package:provider/provider.dart';
 import 'package:ui/cors/constants.dart';
 import 'package:ui/models/players.dart';
 import 'package:ui/providers/players.dart';
-import 'package:ui/providers/word.dart';
+import 'package:ui/screens/choose_word.dart';
 import 'package:ui/widgets/custom_button.dart';
-import 'package:ui/widgets/custom_input.dart';
 import 'package:ui/widgets/navbar.dart';
 
-class ChooseWordScreen extends StatefulWidget {
-  const ChooseWordScreen({Key? key}) : super(key: key);
+class WhoChooseScreen extends StatefulWidget {
+  const WhoChooseScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChooseWordScreen> createState() => _ChooseWordScreenState();
+  State<WhoChooseScreen> createState() => _WhoChooseScreenState();
 }
 
-class _ChooseWordScreenState extends State<ChooseWordScreen> {
+class _WhoChooseScreenState extends State<WhoChooseScreen> {
   final _formKey = GlobalKey<FormState>();
   late PlayersModel _players;
-  final _word = TextEditingController(text: 'word');
 
   @override
   void initState() {
@@ -26,18 +24,13 @@ class _ChooseWordScreenState extends State<ChooseWordScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _word.dispose();
-  }
-
-  void onSubmit() {
+  void onSubmit(String startPlayer) {
     _formKey.currentState!.save();
     final bool isValide = _formKey.currentState!.validate();
 
     if (isValide) {
-      Provider.of<WordProvider>(context, listen: false).updateWord(_word.text);
+      Provider.of<PlayersProvider>(context, listen: false)
+          .updatePlayersStart(startPlayer);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -56,20 +49,16 @@ class _ChooseWordScreenState extends State<ChooseWordScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('${_players.start} commence', style: titleStyle),
-            Column(
-              children: [
-                CustomInput(
-                  controller: _word,
-                  label: 'Choisir un mot',
-                  hint: 'Chacal',
-                ),
-              ],
+            const Text('Qui choisi un mot ?', style: titleStyle),
+            CustomButton(
+              onAction: () => onSubmit(_players.player1),
+              textButton: _players.player1,
             ),
             CustomButton(
-              onAction: () => onSubmit(),
-              textButton: 'Jouer',
+              onAction: () => onSubmit(_players.player2),
+              textButton: _players.player2,
             ),
+            Container(),
           ],
         ),
       ),
