@@ -4,11 +4,13 @@ import 'package:ui/cors/constants.dart';
 class CustomButton extends StatefulWidget {
   final Function onAction;
   final String textButton;
+  final FocusNode? focusNode;
 
   const CustomButton({
     Key? key,
     required this.onAction,
     required this.textButton,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -63,6 +65,7 @@ class _CustomButtonState extends State<CustomButton> {
 
     return Center(
       child: ElevatedButton(
+        focusNode: widget.focusNode,
         onPressed: () => spinner ? null : onPressed(),
         child: spinner ? spinnerWidget(Colors.white) : innerTextWidget(),
         style: ElevatedButton.styleFrom(

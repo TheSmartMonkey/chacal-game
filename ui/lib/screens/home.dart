@@ -44,9 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _players,
       );
       Provider.of<NumberOfTriesProvider>(context, listen: false)
-          .updateNumberOfTries(
-        int.parse(_selectedValue),
-      );
+          .updateNumberOfTries(int.parse(_selectedValue));
       Navigator.push(
         context,
         MaterialPageRoute(

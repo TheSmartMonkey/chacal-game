@@ -26,9 +26,11 @@ class _GameScreenState extends State<GameScreen> {
   late int _numberOfTries;
   late int _currentNumberOfTries;
   final _selectedWord = TextEditingController(text: '');
+  late FocusNode focusNode;
 
   @override
   void initState() {
+    super.initState();
     _players = Provider.of<PlayersProvider>(context, listen: false).getPlayers;
     _currentPlayer =
         Provider.of<PlayersProvider>(context, listen: false).getCurrentPlayer;
@@ -40,13 +42,14 @@ class _GameScreenState extends State<GameScreen> {
     _currentNumberOfTries =
         Provider.of<NumberOfTriesProvider>(context, listen: false)
             .getCurrentNumberOfTries;
-    super.initState();
+    focusNode = FocusNode();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _selectedWord.dispose();
+    focusNode.dispose();
+    super.dispose();
   }
 
   void onSubmit() {
@@ -65,38 +68,13 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  List<Widget> enterWordWidget() {
-    return [
-      Text('$_currentPlayer a toi de jouer', style: titleStyle),
-      Text(
-        'Essais restants:  ${_remaningTries().toString()}',
-        style: titleStyle,
-      ),
-      Text(_currentWord, style: titleStyle),
-      Column(
-        children: [
-          CustomInput(
-            controller: _selectedWord,
-            label: 'Choisir un mot',
-            hint: 'Chacal',
-            maxLength: 20,
-          ),
-        ],
-      ),
-      CustomButton(
-        onAction: () => onSubmit(),
-        textButton: 'Valider',
-      ),
-    ];
-  }
-
   void _isWon() {
+    Provider.of<NumberOfTriesProvider>(context, listen: false)
+        .incerementCurrentNumberOfTries(_currentNumberOfTries);
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
-          Provider.of<NumberOfTriesProvider>(context, listen: false)
-              .incerementCurrentNumberOfTries(_currentNumberOfTries);
           if (_selectedWord.text == _word) {
             return const EndScreen(isWon: true);
           } else if (_currentNumberOfTries + 1 == _numberOfTries) {
@@ -120,7 +98,34 @@ class _GameScreenState extends State<GameScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: enterWordWidget(),
+          children: [
+            Text('$_currentPlayer a toi de jouer', style: titleStyle),
+            Text(
+              'Essais restants:  ${_remaningTries().toString()}',
+              style: titleStyle,
+            ),
+            Text(_currentWord, style: titleStyle),
+            Column(
+              children: [
+                CustomInput(
+                  controller: _selectedWord,
+                  label: 'Choisir un mot',
+                  hint: 'Chacal',
+                  maxLength: 20,
+                  onEditingComplete: () {
+                    focusNode.nextFocus();
+                    focusNode.nextFocus();
+                    return true;
+                  },
+                ),
+              ],
+            ),
+            CustomButton(
+              onAction: () => onSubmit(),
+              textButton: 'Valider',
+              focusNode: focusNode,
+            ),
+          ],
         ),
       ),
     );

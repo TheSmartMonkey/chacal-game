@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CustomInput extends StatelessWidget {
+class CustomInput extends StatefulWidget {
   final TextEditingController controller;
   final String label;
   final String hint;
   final int? maxLength;
-  final Function? validator;
+  final Function(String?)? validator;
+  final Function()? onEditingComplete;
 
   const CustomInput({
     Key? key,
@@ -14,8 +15,14 @@ class CustomInput extends StatelessWidget {
     required this.hint,
     this.maxLength,
     this.validator,
+    this.onEditingComplete,
   }) : super(key: key);
 
+  @override
+  State<CustomInput> createState() => _CustomInputState();
+}
+
+class _CustomInputState extends State<CustomInput> {
   valide(value) {
     if (value == null || value.isEmpty) {
       return 'Entre du text svp frère';
@@ -29,13 +36,14 @@ class CustomInput extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(40),
         child: TextFormField(
-          controller: controller,
+          controller: widget.controller,
           decoration: InputDecoration(
-            hintText: hint,
-            labelText: label,
+            hintText: widget.hint,
+            labelText: widget.label,
           ),
-          maxLength: maxLength,
-          validator: (value) => validator ?? valide(value),
+          maxLength: widget.maxLength,
+          validator: (value) => widget.validator ?? valide(value),
+          onEditingComplete: () => widget.onEditingComplete,
         ),
       ),
     );
