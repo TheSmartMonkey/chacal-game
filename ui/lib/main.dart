@@ -8,23 +8,25 @@ import 'package:ui/screens/home.dart';
 import 'package:provider/provider.dart';
 import 'package:ui/screens/who_choose.dart';
 
-void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => PlayersProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => WordProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => NumberOfTriesProvider(),
-        ),
-      ],
-      child: const MyApp(),
-    ),
+MultiProvider initApp() {
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => PlayersProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => WordProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => NumberOfTriesProvider(),
+      ),
+    ],
+    child: const MyApp(),
   );
+}
+
+void main() {
+  runApp(initApp());
 }
 
 class MyApp extends StatelessWidget {

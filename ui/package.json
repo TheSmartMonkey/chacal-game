@@ -8,7 +8,8 @@
     "build:web": "flutter build web",
     "build:ios": "flutter build ios",
     "build:apk": "flutter build apk",
-    "test": "flutter test",
+    "test": "flutter test -v",
+    "test:web": "flutter test -v --web-renderer auto",
     "web": "flutter run -d chrome",
     "mobile": "flutter run -d emulator-5554"
   }

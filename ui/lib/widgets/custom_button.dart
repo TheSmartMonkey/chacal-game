@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui/cors/constants.dart';
 
 class CustomButton extends StatefulWidget {
   final Function onAction;
