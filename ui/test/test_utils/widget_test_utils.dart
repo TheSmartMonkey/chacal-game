@@ -1,10 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ui/main.dart';
-
-Future<void> initAppWidgetTest(WidgetTester tester) async {
-  await tester.pumpWidget(initApp());
-  await wait(tester);
-}
 
 Future<void> wait(WidgetTester tester) async {
   await tester.pumpAndSettle();
