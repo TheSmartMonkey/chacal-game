@@ -12,6 +12,7 @@ class PlayersModel {
   Map<String, String?> toJson() => {
         'player1': player1,
         'player2': player2,
+        'start': start,
       };
 
   PlayersModel.fromJson(Map<String, dynamic> json)

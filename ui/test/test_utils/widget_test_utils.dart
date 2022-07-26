@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> wait(WidgetTester tester) async {
+Future<void> wait(WidgetTester tester, {int seconds = 2}) async {
   await tester.pumpAndSettle();
-  await tester.pump(const Duration(seconds: 2));
+  await tester.pump(Duration(seconds: seconds));
 }
 
 Future<void> buttonClick(WidgetTester tester, Finder button) async {
